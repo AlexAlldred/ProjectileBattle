@@ -6,9 +6,16 @@ public class Projectile : MonoBehaviour {
 	private Vector2 shotDirection;
 	private Vector2 initialPosition;
 	private Vector2 finalPosition;
+
+	public GameObject XMarker;
+	private LineRenderer LineMarker;
+	private bool activeMarker = false;
 	// Use this for initialization
 
 	void Start () {
+		XMarker = Instantiate(XMarker, new Vector2(-100, -100), Quaternion.identity);
+		XMarker.AddComponent<LineRenderer>();
+		LineMarker = XMarker.GetComponent<LineRenderer>();
 		
 	}
 	
@@ -17,6 +24,10 @@ public class Projectile : MonoBehaviour {
 		if(Input.GetMouseButtonDown(0)) 
 		{
 			InitialClick();
+		}
+		if(Input.GetMouseButton(0)) 
+		{
+			LineMarker.SetPosition(1, Camera.main.ScreenToWorldPoint(Input.mousePosition));
 		}
 		if(Input.GetMouseButtonUp(0))
 		{
@@ -28,7 +39,12 @@ public class Projectile : MonoBehaviour {
 
 	void InitialClick()
 	{
-		initialPosition = (Vector2)Input.mousePosition;
+		initialPosition = Input.mousePosition;
+		XMarker.SetActive(true);
+		activeMarker = true;
+
+		XMarker.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		LineMarker.SetPosition(0, XMarker.transform.position);
 	}
 	void FinalClick()
 	{
