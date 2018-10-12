@@ -16,6 +16,11 @@ public class Projectile : MonoBehaviour {
 		XMarker = Instantiate(XMarker, new Vector2(-100, -100), Quaternion.identity);
 		XMarker.AddComponent<LineRenderer>();
 		LineMarker = XMarker.GetComponent<LineRenderer>();
+		LineMarker.startWidth = 0.05f;
+		LineMarker.endWidth = 0.05f;
+		LineMarker.alignment = LineAlignment.TransformZ;
+		LineMarker.startColor = Color.white;
+		LineMarker.endColor = Color.red;
 		
 	}
 	
